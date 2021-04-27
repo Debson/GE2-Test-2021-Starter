@@ -521,12 +521,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5190680611533997972, guid: b471fff3b0213bb4882085e357ee2c4e, type: 3}
       propertyPath: maxWalkingSpeed
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5190680611533997974, guid: b471fff3b0213bb4882085e357ee2c4e, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 963194225}
+    - target: {fileID: 5190680611533997974, guid: b471fff3b0213bb4882085e357ee2c4e, type: 3}
+      propertyPath: maxWalkingSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8233247188343150142, guid: b471fff3b0213bb4882085e357ee2c4e, type: 3}
       propertyPath: m_RootOrder
       value: 3
