@@ -6,6 +6,8 @@ public class FollowBallController : MonoBehaviour
 {
     public GameObject ball;
     public GameObject player;
+
+    public float arriveUnits = 10.0f;
     public float maxWalkingSpeed = 0.5f;
     public float rotatingSpeed = 5.0f;
     public float walkingSpeed = 0.0f;
@@ -40,7 +42,7 @@ public class FollowBallController : MonoBehaviour
 
             ball.transform.position = new Vector3(ball.transform.position.x, 1.0f, ball.transform.position.z); // Carry ball above the dog
             ball.transform.rotation = Quaternion.Euler(0, 0, 0);
-            currentWaypoint = player.transform.position + player.transform.forward * 3.0f; // Bring it infront of player
+            currentWaypoint = player.transform.position + player.transform.forward * arriveUnits; // Bring it infront of player
             // Dog is very close to the target position
             if (Vector3.Distance(transform.position, currentWaypoint) < 3.0f)
             {
