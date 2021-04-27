@@ -7,8 +7,10 @@ public class FPSController : MonoBehaviour
 {
     public GameObject mainCamera;
     public GameObject ball;
+    public GameObject dog;
     public float speed = 50.0f;
     public float lookSpeed = 150.0f;
+    public float ballThrowForce = 100.0f;
 
     public bool allowPitch = true;
 
@@ -118,10 +120,16 @@ public class FPSController : MonoBehaviour
         Walk(contWalk * speed * Time.deltaTime);
         Strafe(contStrafe * speed * Time.deltaTime);
 
-
-        if (Input.GetKey(KeyCode.Space))
+        var dogStateMachine = dog.GetComponent<StateMachine>();
+        Debug.Log(dogStateMachine.currentState);
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            // Throw ball
+            var ballObject = Instantiate(ball, transform.position, transform.rotation);
+            var rigidBody = ballObject.GetComponent<Rigidbody>();
+            rigidBody.AddForce(transform.forward * ballThrowForce);
+
+            dog.GetComponent<FollowBallController>().ball = ballObject;
+            dogStateMachine.ChangeState(new DogChaseBallState());
         }
     }
 }

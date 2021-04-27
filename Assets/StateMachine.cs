@@ -12,7 +12,6 @@ public abstract class State
 
 public class StateMachine : MonoBehaviour
 {
-
     public State currentState;
     public State globalState;
     public State previousState;
