@@ -14,6 +14,8 @@ public class FPSController : MonoBehaviour
 
     public bool allowPitch = true;
 
+    private State dogChaseBallState = new DogChaseBallState();
+
     public GUIStyle style;
     // Use this for initialization
     void Start()
@@ -121,15 +123,15 @@ public class FPSController : MonoBehaviour
         Strafe(contStrafe * speed * Time.deltaTime);
 
         var dogStateMachine = dog.GetComponent<StateMachine>();
-        Debug.Log(dogStateMachine.currentState);
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && dogStateMachine.currentState != dogChaseBallState)
         {
             var ballObject = Instantiate(ball, transform.position, transform.rotation);
             var rigidBody = ballObject.GetComponent<Rigidbody>();
             rigidBody.AddForce(transform.forward * ballThrowForce);
 
             dog.GetComponent<FollowBallController>().ball = ballObject;
-            dogStateMachine.ChangeState(new DogChaseBallState());
+            dog.GetComponent<AudioSource>().Play(0);
+            dogStateMachine.ChangeState(dogChaseBallState);
         }
     }
 }
