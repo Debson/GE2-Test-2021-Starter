@@ -17,10 +17,12 @@ public class FollowBallController : MonoBehaviour
     private Vector3 currentWaypoint;
     private Vector3 target;
 
+    private Rigidbody ballRigidbody;
+
     private bool isBallPickedUp = false;
-    void Start()
+    public void Init()
     {
-        ballLastPosition = ball.transform.position;
+        ballRigidbody = ball.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -36,7 +38,7 @@ public class FollowBallController : MonoBehaviour
             target = player.transform.position;
             ball.transform.position = transform.position + transform.forward * 1.5f;
 
-            ball.transform.position = new Vector3(ball.transform.position.x, 2.0f, ball.transform.position.z);
+            ball.transform.position = new Vector3(ball.transform.position.x, 1.0f, ball.transform.position.z); // Carry ball above the dog
             ball.transform.rotation = Quaternion.Euler(0, 0, 0);
             currentWaypoint = player.transform.position + player.transform.forward * 3.0f; // Bring it infront of player
             // Dog is very close to the target position
@@ -61,9 +63,7 @@ public class FollowBallController : MonoBehaviour
         dogRotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, dogRotation.eulerAngles.y, dogRotation.eulerAngles.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, dogRotation, rotatingSpeed * Time.deltaTime);
 
-        ballSpeed = Vector3.Distance(ball.transform.position, ballLastPosition) / Time.deltaTime;
-        ballLastPosition = ball.transform.position;
-        if (ballSpeed < 1.0f && Vector3.Distance(transform.position, currentWaypoint) <= 1.0 && !isBallPickedUp)
+        if (ballRigidbody.velocity.magnitude < 1.0f && Vector3.Distance(transform.position, currentWaypoint) < 1.5f && !isBallPickedUp)
         {
             // Pick up the ball
             isBallPickedUp = true;

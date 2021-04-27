@@ -129,7 +129,9 @@ public class FPSController : MonoBehaviour
             var rigidBody = ballObject.GetComponent<Rigidbody>();
             rigidBody.AddForce(transform.forward * ballThrowForce);
 
-            dog.GetComponent<FollowBallController>().ball = ballObject;
+            var followBallController = dog.GetComponent<FollowBallController>();
+            followBallController.ball = ballObject;
+            followBallController.Init();
             dog.GetComponent<AudioSource>().Play(0);
             dogStateMachine.ChangeState(dogChaseBallState);
         }
