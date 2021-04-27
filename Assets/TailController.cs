@@ -21,7 +21,7 @@ public class TailController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentSpeed = Vector3.Magnitude(transform.position - lastPosition) / Time.deltaTime;
+        currentSpeed = Vector3.Distance(transform.position, lastPosition) / Time.deltaTime;
         lastPosition = transform.position;
 
         float angleStep = angleFactorSign * baseAngleIncrementFactor * currentSpeed * Time.deltaTime;
